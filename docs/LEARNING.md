@@ -7,7 +7,7 @@
 | 支柱 | 学什么 | 在哪 |
 |---|---|---|
 | ① 理论 | Agent 核心概念（为什么这么设计） | `docs/handbook.md` + `docs/deep-dive/` |
-| ② 代码精读 | 读 opencode 源码，**让代码带我们挖出深理论** | `docs/opencode-study/LEARNING_MAP.md`（源码在 `~/code/opencode`） |
+| ② 代码精读 | 读 opencode 源码，**让代码带我们挖出深理论** | `docs/opencode-study/LEARNING_MAP.md`（源码在 Windows：`D:\code\opencode`；macOS/Linux：`~/code/opencode`） |
 | ③ 实践 | 亲手实现我们的 Agent Harness（TS CLI） | `harness/` |
 
 三者互相印证：**理论**讲"为什么"，**源码**讲"生产怎么做"，**harness** 讲"我真的会了"。

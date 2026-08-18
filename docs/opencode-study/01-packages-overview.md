@@ -17,7 +17,7 @@
 | 语言 | TypeScript（monorepo，pnpm 管理） |
 | 规模 | ~432MB，`packages/` 下 32 个包 |
 | 核心源码 | `packages/opencode/src/` |
-| 本地副本 | `~/code/opencode`（稀疏克隆，只拉 `packages/`） |
+| 本地副本 | Windows：`D:\code\opencode`；macOS/Linux：`~/code/opencode`（稀疏克隆，只拉 `packages/`） |
 
 ## 骨架：一颗洋葱
 

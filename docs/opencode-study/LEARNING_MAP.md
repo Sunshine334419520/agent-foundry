@@ -1,7 +1,7 @@
 # OpenCode 学习地图 —— Harness 核心知识
 
 > **核心目标**：掌握下表每一项（**Harness 核心知识**），每项都做 **理论 + 源码** 双深挖，并在我们的 harness（`agent-foundry/harness/`）里实现。
-> **配套源码**：`~/code/opencode`（稀疏克隆，只拉了 `packages/`）。路径相对 `packages/opencode/src/`（除非另注明 `packages/`）。
+> **配套源码**：Windows 下为 `D:\code\opencode`，macOS/Linux 下为 `~/code/opencode`（稀疏克隆，只拉了 `packages/`）。路径相对 `packages/opencode/src/`（除非另注明 `packages/`）。
 > **阶段 0（地基，已完成）**：`handbook.md` → `deep-dive/part1-5` → 亲手写 Python 最小 Agent（`demo/minimal-agent/`）。
 
 ## 方法论基石：以代码为大纲，理论从代码中挖出
@@ -14,7 +14,7 @@
 
 | # | 核心知识 | 理论深挖（要挖透的） | opencode 源码 | harness 实现 |
 |---|---|---|---|---|
-| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 | `session/processor.ts`、`session/session.ts` | ◐ `src/loop.ts`（最小版跑通，深挖未开始） |
+| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 → [01-agent-loop.md](01-agent-loop.md)（理论篇，A 步完成） | `session/processor.ts`、`session/session.ts`、`prompt.ts`、`llm.ts`、`retry.ts` | ✅ `src/loop.ts`（runLoop/oneStep 拆分 + stop_reason 停止条件 + maxSteps 软限制 + retry/halt/cleanup；`src/retry.ts` 新增） |
 | 2 | **Session 管理** | 消息为何 schema 化 / 版本兼容(v2) / 状态机 / 为何持久化 | `session/`（`message*.ts`、`schema.ts`、`status.ts`、`run-state.ts`、`todo.ts`、`reminders.ts`） | ⬜ |
 | 3 | **Agent 管理** | "模式 = 人设 + 工具权限" / 类型系统 / 配置 | `agent/agent.ts`、`agent/subagent-permissions.ts` | ⬜ |
 | 4 | **子代理** | spawn 机制 / 隔离 / 权限边界 / 并行 | `tool/task.ts` | ⬜ |
