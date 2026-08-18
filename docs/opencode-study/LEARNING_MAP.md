@@ -14,7 +14,7 @@
 
 | # | 核心知识 | 理论深挖（要挖透的） | opencode 源码 | harness 实现 |
 |---|---|---|---|---|
-| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 | `session/processor.ts`、`session/session.ts` | ✅ `src/loop.ts` |
+| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 | `session/processor.ts`、`session/session.ts` | ◐ `src/loop.ts`（最小版跑通，深挖未开始） |
 | 2 | **Session 管理** | 消息为何 schema 化 / 版本兼容(v2) / 状态机 / 为何持久化 | `session/`（`message*.ts`、`schema.ts`、`status.ts`、`run-state.ts`、`todo.ts`、`reminders.ts`） | ⬜ |
 | 3 | **Agent 管理** | "模式 = 人设 + 工具权限" / 类型系统 / 配置 | `agent/agent.ts`、`agent/subagent-permissions.ts` | ⬜ |
 | 4 | **子代理** | spawn 机制 / 隔离 / 权限边界 / 并行 | `tool/task.ts` | ⬜ |
@@ -29,12 +29,13 @@
 | 13 | **持久化** | 数据库 / 会话恢复 / 审计 | `packages/core`、`effect-drizzle-sqlite`、`effect-sqlite-node` | ⬜ |
 | 14 | **协议 / Server** | 通信协议 / 代码生成 / 守护进程 | `packages/protocol`、`packages/server` | ⬜ |
 
-## 每个深挖单元的标准推进法
+## 每个深挖单元怎么推进
 
-1. **通读入口源码** → 列出它涉及的核心理论（以代码为大纲，不用旧框架去框它）；
-2. **逐个理论深入**：解决什么真实问题？代码怎么实现？有什么取舍？
-3. **深理论落文档**：写一篇 `0X-<主题>.md`（记录"为什么"，不是抄代码）；
-4. **在 harness 实现**该层，跑通验证。
+见 [docs/LEARNING.md](../LEARNING.md) 的 **五步推进法**：
+
+> **A 理论梳理**（我：读源码 + 查资料 → 理论文档）→ **B 理论学习**（你学 + 讨论）→ **C 代码精读**（带理论逐段读源码）→ **D 实现 harness** → **E 验收 + 笔记 ✅**
+
+**关键纪律**：每步停下来讨论，确认懂了再进下一步，绝不自动往下冲。理论不扎实（B）绝不碰代码（C）。
 
 ## 学习顺序
 
