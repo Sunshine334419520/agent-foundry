@@ -14,7 +14,7 @@
 
 | # | 核心知识 | 理论深挖（要挖透的） | opencode 源码 | harness 实现 |
 |---|---|---|---|---|
-| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 → [01-agent-loop.md](01-agent-loop.md)（理论篇，A 步完成） | `session/processor.ts`、`session/session.ts`、`prompt.ts`、`llm.ts`、`retry.ts` | ✅ `src/loop.ts`（runLoop/oneStep 拆分 + stop_reason 停止条件 + maxSteps 软限制 + retry/halt/cleanup；`src/retry.ts` 新增） |
+| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 → [01-agent-loop.md](01-agent-loop.md)（理论篇，A 步完成） | `session/processor.ts`、`session/session.ts`、`prompt.ts`、`llm.ts`、`retry.ts` | ✅ 按概念分层重构：`session.ts`(数据)·`llm.ts`(调用+用量)·`agent-loop.ts`(驱动器+停止条件+软限制)·`cli.ts`(REPL 逐步详情)·`retry.ts`(重试)·`config.ts`(定价估算)，`loop.ts` 已拆散删除 |
 | 2 | **Session 管理** | 消息为何 schema 化 / 版本兼容(v2) / 状态机 / 为何持久化 | `session/`（`message*.ts`、`schema.ts`、`status.ts`、`run-state.ts`、`todo.ts`、`reminders.ts`） | ⬜ |
 | 3 | **Agent 管理** | "模式 = 人设 + 工具权限" / 类型系统 / 配置 | `agent/agent.ts`、`agent/subagent-permissions.ts` | ⬜ |
 | 4 | **子代理** | spawn 机制 / 隔离 / 权限边界 / 并行 | `tool/task.ts` | ⬜ |

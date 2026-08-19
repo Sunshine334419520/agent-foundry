@@ -1,12 +1,7 @@
-// index.ts —— CLI 入口（对应学习地图 阶段 3 的 cli 包，先做最小版）
-//
-// 用法: npx tsx src/index.ts "你的任务"
+// index.ts —— 入口：启动 REPL
+// 所有分层都在 src/ 里：config(能力) · retry(能力) · tools(能力) · llm(能力)
+//    · session(数据) · agent-loop(编排) · cli(UI)。这里只负责点火。
 
-import { agentLoop } from "./loop.js";
+import { runRepl } from "./cli.js";
 
-const task = process.argv[2] ?? "List the files in the current directory";
-console.log(`Task: ${task}\n`);
-
-const result = await agentLoop(task);
-console.log(`\n${"=".repeat(60)}`);
-console.log(`FINAL: ${result}`);
+await runRepl();
