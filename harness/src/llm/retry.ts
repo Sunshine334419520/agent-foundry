@@ -1,4 +1,4 @@
-// retry.ts —— 可重试判断 + 指数退避（第 1 课错误分层：retry 这一层）
+// llm/retry.ts —— 可重试判断 + 指数退避（第 1 课错误分层：retry 这一层）
 //
 // 移植 opencode 的思想（对照 D:\code\opencode\packages\opencode\src\session\retry.ts）：
 //   - retryable(): 哪些错误值得重试。opencode 的哲学：可重试的绝不放弃，

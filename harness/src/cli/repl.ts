@@ -1,4 +1,4 @@
-// cli.ts —— UI 层：持续对话 REPL（类似 opencode / Claude Code 的终端）
+// cli/repl.ts —— UI 层：持续对话 REPL（类似 opencode / Claude Code 的终端）
 //
 // 只管三件事：读输入 → 调 AgentLoop.run(session) → 打印结果。
 // 启动即一个 session，可连续对话，复用同一条记忆链。
@@ -6,11 +6,17 @@
 
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
-import { Session } from "./session.js";
-import { LLM } from "./llm.js";
-import { AgentLoop } from "./agent-loop.js";
+import { Session } from "../session/session.js";
+import { LLM } from "../llm/llm.js";
+import { AgentLoop } from "../loop/agent-loop.js";
+import { bus } from "../bus/event-bus.js";
+import { ReplRenderer } from "./render.js";
 
 export async function runRepl(): Promise<void> {
+  // ── 组合根：把"消费者"挂到总线上。agent-loop 是生产者，不关心谁在听。──
+  const renderer = new ReplRenderer();
+  bus.on((event) => renderer.on(event));
+
   // ── 启动：亮出"实际在用什么模型 / 哪个端点"（config.ts 三层优先级的结果）──
   const llm = new LLM();
   const endpoint = llm.baseURL ? new URL(llm.baseURL).host : "(Anthropic 默认端点)";

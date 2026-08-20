@@ -14,18 +14,18 @@
 
 | # | 核心知识 | 理论深挖（要挖透的） | opencode 源码 | harness 实现 |
 |---|---|---|---|---|
-| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 → [01-agent-loop.md](01-agent-loop.md)（理论篇，A 步完成） | `session/processor.ts`、`session/session.ts`、`prompt.ts`、`llm.ts`、`retry.ts` | ✅ 按概念分层重构：`session.ts`(数据)·`llm.ts`(调用+用量)·`agent-loop.ts`(驱动器+停止条件+软限制)·`cli.ts`(REPL 逐步详情)·`retry.ts`(重试)·`config.ts`(定价估算)，`loop.ts` 已拆散删除 |
-| 2 | **Session 管理** | 消息为何 schema 化 / 版本兼容(v2) / 状态机 / 为何持久化 | `session/`（`message*.ts`、`schema.ts`、`status.ts`、`run-state.ts`、`todo.ts`、`reminders.ts`） | ⬜ |
+| 1 | **Agent Loop** | 循环本质 / 停止条件 / 错误处理哲学 → [01-agent-loop.md](01-agent-loop.md)（理论篇，A 步完成） | `session/processor.ts`、`session/session.ts`、`prompt.ts`、`llm.ts`、`retry.ts` | ✅ **功能目录划分**（无 index 门面，具名文件+完整路径）：`loop/agent-loop.ts`(驱动器)·`session/session.ts`(数据)·`llm/llm.ts`(调用+用量)·`llm/retry.ts`(重试)·`config/config.ts`(定价) |
+| 2 | **Session 管理** | 消息为何 schema 化 / 版本兼容(v2) / 状态机 / 为何持久化 → [02-session-management.md](02-session-management.md)（理论篇，A 步完成） | `session/`（`message*.ts`、`schema.ts`、`status.ts`、`run-state.ts`、`todo.ts`、`reminders.ts`）+ `packages/schema/src/v1/session.ts`、`packages/core/src/installation/version.ts` | ✅ `session/session.ts`：`StoredMessage/StoredPart`（id/parentID/version:1）+ `toModelMessages()` 存储→协议适配点（含中断工具兜底）；`loop/agent-loop.ts` 改吃适配产物，`cli/repl.ts` 零改动。Schema 校验/持久化仍留 #13 |
 | 3 | **Agent 管理** | "模式 = 人设 + 工具权限" / 类型系统 / 配置 | `agent/agent.ts`、`agent/subagent-permissions.ts` | ⬜ |
 | 4 | **子代理** | spawn 机制 / 隔离 / 权限边界 / 并行 | `tool/task.ts` | ⬜ |
 | 5 | **Tools** | 工具 schema / 注册 / 执行 / prompt 注入 | `tool/`（41 个工具） | ◐ `src/tools.ts`（最小版） |
 | 6 | **上下文管理** | compaction / token 预算 / overflow / 摘要 agent | `session/compaction.ts`、`summary.ts`、`overflow.ts`、`system.ts` + compaction agent | ⬜ |
-| 7 | **模型接入 / 流式** | provider 抽象 / 统一接口 / 流式事件 / prompt caching / 用量统计 | `provider/`、`session/llm/`、`packages/llm` | ◐ `src/config.ts`（地基） |
+| 7 | **模型接入 / 流式** | provider 抽象 / 统一接口 / 流式事件 / prompt caching / 用量统计 → [07-streaming.md](07-streaming.md)（**流式已拉前深挖**，A-B-C-D 完成；caching 等随 #6 补） | `provider/`、`session/llm/`（`ai-sdk.ts`、`native-runtime.ts`）、`packages/llm/src/schema/events.ts` | ✅ 生产者 `llm/llm.ts stream()`（SSE→语义事件）+ `loop/agent-loop.ts` **纯生产者**（只 publish 不渲染）+ `bus/event-bus.ts` 总线（同比 opencode GlobalBus/EventV2）+ 消费者 `cli/render.ts` ReplRenderer（`cli/repl.ts` 组合根订阅）；`llm/stream.ts` 纯折叠供控制决策。隔离/多消费者/取消订阅已单测 |
 | 8 | **权限** | 权限矩阵 / plan_enter / plan_exit / 用户确认 | `permission/evaluate.ts`、`permission/arity.ts` | ⬜ |
 | 9 | **MCP** | 外部工具协议 / 生命周期 | `mcp/` | ⬜ |
 | 10 | **Skill** | 技能加载 / 渐进披露 | `skill/` | ⬜ |
 | 11 | **快照 / 撤销** | 状态回退 / 差异 / 审计 | `snapshot/`、`session/revert.ts` | ⬜ |
-| 12 | **事件总线** | 事件驱动 / 模块解耦 | `bus/` | ⬜ |
+| 12 | **事件总线** | 事件驱动 / 模块解耦 | `bus/`（`global.ts`：GlobalBus）、`event-v2-bridge.ts`、`core/event.ts` | ◐ `bus/event-bus.ts`（简化版：Set 订阅集 + 异常隔离 + 取消订阅；**已随 #7 流式拉前**；将来可加持久化/历史事件流） |
 | 13 | **持久化** | 数据库 / 会话恢复 / 审计 | `packages/core`、`effect-drizzle-sqlite`、`effect-sqlite-node` | ⬜ |
 | 14 | **协议 / Server** | 通信协议 / 代码生成 / 守护进程 | `packages/protocol`、`packages/server` | ⬜ |
 

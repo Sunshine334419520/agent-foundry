@@ -1,4 +1,4 @@
-// config.ts —— 配置加载（对应学习地图 阶段 6 模型接入的地基）
+// config/config.ts —— 配置加载（对应学习地图 阶段 6 模型接入的地基）
 //
 // 和 Python demo 同一个思路：直接读 ~/.claude/settings.json 的 env 块，
 // 不复制 key 到终端。优先级：配置文件 > 进程环境变量 > 代码默认值。
