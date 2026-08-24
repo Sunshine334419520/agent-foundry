@@ -46,6 +46,17 @@ export class ReplRenderer {
         console.log(`    ← ${trim(event.output, 120)}`);
         break;
 
+      case "compact":
+        console.log(`\n📦 上下文溢出，已自动压缩（保留最近 2 轮，旧上下文压成锚定摘要）`);
+        break;
+
+      case "debug":
+        // 学习日志：label + 内容框。producer 给结构化文本，这里只管"画框"。
+        console.log(`\n┌─ ${event.label} ${"─".repeat(Math.max(2, 52 - event.label.length))}`);
+        console.log(event.content);
+        console.log(`└${"─".repeat(56)}`);
+        break;
+
       case "turn-end":
         console.log(
           `\n━━ 本轮: 输入 ${fmt(event.usage.input)} · 输出 ${fmt(event.usage.output)}` +

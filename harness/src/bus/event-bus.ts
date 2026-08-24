@@ -14,6 +14,8 @@ export type BusEvent =
   | { type: "stream"; event: StreamEvent } // 语义流事件（text/reasoning/tool-input/tool-call/finish…）
   | { type: "step-end"; stopReason: string | undefined; usage: Usage }
   | { type: "tool-run"; name: string; input: unknown; output: string }
+  | { type: "compact"; reason: "overflow" } // 第 6 课：溢出触发的自动压缩
+  | { type: "debug"; label: string; content: string } // 学习日志：完整请求/AI 返回/摘要过程（verbose 时发）
   | { type: "turn-end"; usage: Usage; costLine: string };
 
 type Listener = (event: BusEvent) => void;
