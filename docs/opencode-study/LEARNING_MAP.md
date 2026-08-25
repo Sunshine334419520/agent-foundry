@@ -29,6 +29,25 @@
 | 13 | **持久化** | 数据库 / 会话恢复 / 审计 | `packages/core`、`effect-drizzle-sqlite`、`effect-sqlite-node` | ⬜ |
 | 14 | **协议 / Server** | 通信协议 / 代码生成 / 守护进程 | `packages/protocol`、`packages/server` | ⬜ |
 
+## B 梯队 · 前沿概念待学清单（源自 [docs/zhihu.md](../zhihu.md)）
+
+> 2026-08-24 登记。这些概念不在 opencode 核心课程表（#1-#14）里，来自一线 Harness 框架的新特性。
+> 学习方式同 A 梯队：每项做 **理论深挖（A）→ 源码精读（C）→ harness 落地（D）**，B 步视情况跳过。
+> 标注的"权威参考"是候选切入点，深挖时再确认最新源码位置。
+> **学习顺序**：下表从上到下；开工时把该项标记为进行中（◐），完成后打 ✅。
+
+| # | 概念 | 一句话定义 | 权威参考（候选） | 状态 |
+|---|---|---|---|---|
+| B1 | **Memory 记忆系统** | 跨会话保存偏好/经验/失败教训，harness 自动写、启动时注入 | opencode 记忆系统 + Claude Code `~/.claude` 记忆；对照我们现有"单会话内"的 compact/clear | ⬜ |
+| B2 | **Auto Dream** | 记忆整理巩固四阶段：Orient → Gather Signal → Consolidate → Prune（治记忆腐烂） | Claude Code /dream；对照第 6 课 compact（单会话）vs 跨会话巩固 | ⬜ |
+| B3 | **OpenHuman 层次化记忆** | L0 chunk → L1 摘要 → L2 …，tombstone append-only，tree-walk 逐层下钻 + 多路检索 | OpenHuman 记忆系统（26k 行，取 tree-walk 思想）；对比普通 RAG | ⬜ |
+| B4 | **Hook** | 固定生命周期点触发的确定性脚本，凌驾于模型之上（模型无法绕过） | Claude Code hooks（pre/post/stop）+ Humanize 的 Stop hook | ⬜ |
+| B5 | **Goal / Plan** | 把完成条件变成持久状态，get/create/update_goal 三工具，对抗 Agentic Laziness | opencode/Claude Code 的 todo/plan；对照我们 finish 收尾信号 | ⬜ |
+| B6 | **Plugin** | 把 Skill/Hook/SubAgent/MCP 打包分发 | DeepSeek Harness"一切皆插件"（Cordis 微内核） | ⬜ |
+| B7 | **Agent Team** | 多实例自由通信 vs subagent 单线汇报 | 对照我们单 Main + 将来 SubAgent（#4） | ⬜ |
+| B8 | **Dynamic Workflows** | 把编排写成 JS 脚本（agent/pipeline/parallel/phase/log/budget），中间结果搬出模型上下文 | **我们的 Workflow 工具即此理念的现成实现**，反读自己源码 | ⬜ |
+| B9 | **Skill 治理（Curator）** | Skill active→stale→archived 三态，7 天合并 prefix 簇 | Hermes；呼应 #10 Skill 的容量约束 | ⬜ |
+
 ## 每个深挖单元怎么推进
 
 见 [docs/LEARNING.md](../LEARNING.md) 的 **五步推进法**：
