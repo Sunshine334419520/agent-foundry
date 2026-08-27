@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Harness 架构图</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    width:1080px; height:1440px;
+    background:#0d1117;
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+    color:#e6edf3; overflow:hidden;
+  }
+  body { position:relative; }
+
+  /* 顶部标题 */
+  .head { position:absolute; top:44px; left:0; width:1080px; text-align:center; }
+  .head .kicker { font-size:20px; letter-spacing:8px; color:#30e5b7; font-weight:600; }
+  .head h1 { font-size:44px; font-weight:800; margin-top:12px; color:#f0f4ff; }
+  .head .sub { font-size:18px; color:#8b98b5; margin-top:10px; }
+
+  /* 护栏虚线框 */
+  .guardrail {
+    position:absolute; left:50px; top:300px; width:980px; height:840px;
+    border:3px dashed #30e5b7; border-radius:28px;
+  }
+  .guardrail .tag {
+    position:absolute; top:-17px; left:50%; transform:translateX(-50%);
+    background:#0d1117; padding:0 18px; font-size:17px; color:#30e5b7;
+    font-weight:700; letter-spacing:1px; white-space:nowrap;
+  }
+  .guardrail .corner {
+    position:absolute; right:22px; bottom:16px; font-size:14px; color:#30e5b7;
+    opacity:.8; text-align:right; line-height:1.6;
+  }
+
+  /* 零件卡片 */
+  .part { position:absolute; width:210px; text-align:center; }
+  .part .icon {
+    width:66px; height:66px; margin:0 auto; border-radius:18px;
+    display:flex; align-items:center; justify-content:center; font-size:32px;
+    border:2px solid; background:rgba(255,255,255,.05);
+  }
+  .part .name { font-size:21px; font-weight:700; margin-top:10px; }
+  .part .desc { font-size:14px; color:#8b98b5; margin-top:5px; line-height:1.55; }
+
+  /* 中心循环 */
+  .loopwrap { position:absolute; left:325px; top:360px; width:430px; height:430px; }
+  .loopstep {
+    position:absolute; font-size:18px; font-weight:700; color:#f0f4ff;
+    width:80px; text-align:center;
+  }
+  .brain {
+    position:absolute; left:140px; top:140px; width:150px; height:150px; border-radius:50%;
+    background:linear-gradient(135deg,#7c5cff,#4b2ee0);
+    border:3px solid #9b7dff; box-shadow:0 0 40px rgba(124,92,255,.5);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .brain .i { font-size:42px; }
+  .brain .t { font-size:16px; font-weight:700; color:#fff; margin-top:3px; }
+  .brain .s { font-size:11px; color:#d5ccff; margin-top:2px; }
+
+  /* 底部 */
+  .foot { position:absolute; bottom:38px; left:0; width:1080px; text-align:center; font-size:16px; color:#5d6b85; }
+  .foot b { color:#30e5b7; }
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <div class="kicker">H A R N E S S</div>
+    <h1>引擎的核心，是那个「循环」</h1>
+    <div class="sub">想 → 做 → 看结果 → 再想，直到任务完成</div>
+  </div>
+
+  <div class="guardrail">
+    <div class="tag">🛡 护栏（Hook / Goal）—— 代码与目标，模型绕不过</div>
+    <div class="corner">Loop Engineering<br>人定义状态，循环自己跑</div>
+  </div>
+
+  <!-- 零件（绝对坐标） -->
+  <div class="part" style="left:64px; top:520px;">
+    <div class="icon" style="border-color:#ff9d5c; color:#ff9d5c;">🛠️</div>
+    <div class="name" style="color:#ff9d5c;">Tool Call</div>
+    <div class="desc">读写文件 · 跑命令<br>原子操作</div>
+  </div>
+  <div class="part" style="left:64px; top:790px;">
+    <div class="icon" style="border-color:#5cd6ff; color:#5cd6ff;">🔌</div>
+    <div class="name" style="color:#5cd6ff;">MCP</div>
+    <div class="desc">接外部数据/服务<br>不用逐个对接</div>
+  </div>
+  <div class="part" style="left:806px; top:520px;">
+    <div class="icon" style="border-color:#ffd75c; color:#ffd75c;">🎴</div>
+    <div class="name" style="color:#ffd75c;">Skill</div>
+    <div class="desc">技能卡，照固定流程<br>用到才加载</div>
+  </div>
+  <div class="part" style="left:806px; top:790px;">
+    <div class="icon" style="border-color:#9b7dff; color:#9b7dff;">🧑‍💻</div>
+    <div class="name" style="color:#9b7dff;">SubAgent</div>
+    <div class="desc">独立上下文<br>派手下并行干活</div>
+  </div>
+  <div class="part" style="left:435px; top:1060px;">
+    <div class="icon" style="border-color:#5ce0a8; color:#5ce0a8;">📓</div>
+    <div class="name" style="color:#5ce0a8;">Memory</div>
+    <div class="desc">跨会话记住<br>偏好与教训</div>
+  </div>
+
+  <!-- 中心循环环 -->
+  <div class="loopwrap">
+    <svg width="430" height="430" viewBox="0 0 430 430">
+      <defs>
+        <marker id="arw" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#30e5b7"/>
+        </marker>
+      </defs>
+      <circle cx="215" cy="215" r="150" fill="none" stroke="#30e5b7" stroke-width="3" opacity=".3"/>
+      <path d="M 215 65 A 150 150 0 0 1 360 245" fill="none" stroke="#30e5b7" stroke-width="5" stroke-linecap="round" marker-end="url(#arw)"/>
+      <path d="M 360 245 A 150 150 0 0 1 215 365" fill="none" stroke="#30e5b7" stroke-width="5" stroke-linecap="round" marker-end="url(#arw)"/>
+      <path d="M 215 365 A 150 150 0 0 1 70 185" fill="none" stroke="#30e5b7" stroke-width="5" stroke-linecap="round" marker-end="url(#arw)"/>
+      <path d="M 70 185 A 150 150 0 0 1 215 65" fill="none" stroke="#30e5b7" stroke-width="5" stroke-linecap="round" marker-end="url(#arw)"/>
+    </svg>
+    <div class="loopstep" style="left:175px; top:0px;">想</div>
+    <div class="loopstep" style="left:300px; top:120px;">做</div>
+    <div class="loopstep" style="left:175px; top:268px;">看</div>
+    <div class="loopstep" style="left:44px; top:120px;">再想</div>
+    <div class="brain">
+      <div class="i">🧠</div>
+      <div class="t">模型</div>
+      <div class="s">LLM 大脑</div>
+    </div>
+  </div>
+
+  <div class="foot">同一个引擎，装进不同外壳 → <b>WorkBuddy / Claude Code / Codex / OpenCode</b></div>
+
+</body>
+</html>
