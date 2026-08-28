@@ -38,8 +38,8 @@
 
 | # | 概念 | 一句话定义 | 权威参考（候选） | 状态 |
 |---|---|---|---|---|
-| B1 | **Memory 记忆系统** | 跨会话保存偏好/经验/失败教训，harness 自动写、启动时注入 | opencode 记忆系统 + Claude Code `~/.claude` 记忆；对照我们现有"单会话内"的 compact/clear | ⬜ |
-| B2 | **Auto Dream** | 记忆整理巩固四阶段：Orient → Gather Signal → Consolidate → Prune（治记忆腐烂） | Claude Code /dream；对照第 6 课 compact（单会话）vs 跨会话巩固 | ⬜ |
+| B1 | **Memory 记忆系统** | 跨会话保存偏好/经验/失败教训，harness 自动写、启动时注入 | ✅已核实：opencode 源码**无**记忆系统；真参考 = Claude Code auto memory（`~/.claude/projects/<proj>/memory/`，索引 200 行/25KB 上限）| ◐ A+B 理论完成 → [B1B2-memory-and-dream.md](B1B2-memory-and-dream.md) |
+| B2 | **Auto Dream** | 记忆整理巩固四阶段：Orient → Gather Signal → Consolidate → Prune（治记忆腐烂） | ✅已核实：Claude Code **无** /dream；四阶段为博客框架；真 "Dreams" = Managed Agents API 研究预览 | ◐ A+B 理论完成 → [B1B2-memory-and-dream.md](B1B2-memory-and-dream.md) |
 | B3 | **OpenHuman 层次化记忆** | L0 chunk → L1 摘要 → L2 …，tombstone append-only，tree-walk 逐层下钻 + 多路检索 | OpenHuman 记忆系统（26k 行，取 tree-walk 思想）；对比普通 RAG | ⬜ |
 | B4 | **Hook** | 固定生命周期点触发的确定性脚本，凌驾于模型之上（模型无法绕过） | Claude Code hooks（pre/post/stop）+ Humanize 的 Stop hook | ⬜ |
 | B5 | **Goal / Plan** | 把完成条件变成持久状态，get/create/update_goal 三工具，对抗 Agentic Laziness | opencode/Claude Code 的 todo/plan；对照我们 finish 收尾信号 | ⬜ |
